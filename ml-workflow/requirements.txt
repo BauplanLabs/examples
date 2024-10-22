@@ -3,4 +3,4 @@ seaborn==0.13.0
 bauplan
 pandas==2.2.0
 jupyterlab>=4
-streamlit==1.28.1
+streamlit==1.37.0
