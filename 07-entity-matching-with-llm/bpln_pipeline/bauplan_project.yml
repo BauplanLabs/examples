@@ -1,0 +1,7 @@
+project:
+    id: 4c12ce1c-326b-44e7-95fb-7b9c89f75165
+    name: entity_matching_with_llm
+parameters:
+    max_k:
+        type: int
+        default: 100
