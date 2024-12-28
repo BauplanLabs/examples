@@ -132,8 +132,8 @@ flowchart LR
     end
 
     subgraph "Intermediate Tables"
-    B[purchase_sessions.sql]
-    C[metrics_orders.sql]
+    B[purchase_sessions]
+    C[metrics_orders]
     end
 
     subgraph "Final Metrics"
