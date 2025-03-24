@@ -87,8 +87,7 @@ def run_quality_checks(
 
 def wap_with_bauplan():
     """
-    Run the WAP ingestion pipeline using Bauplan in a Prefect flow
-    leveraging the new concept of transactions:
+    Run the WAP ingestion pipeline using Bauplan in Orchestra.
     
     """
     
