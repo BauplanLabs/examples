@@ -1,0 +1,14 @@
+project:
+    id: 785c41b2-7d2f-4149-8fb8-a3d02557613b
+    name: sales_crm
+parameters:
+    creation_date_start:
+        type: str
+        default: "2025-04-26T00:00:00+00:00"
+    linkedin_session_cookie:
+        type: str
+        default: AQEFAHQBAAAAABPLufQAAAGScxbbzwAAAZaPe0yDTQAAF3VybjpsaTptZW1iZXI6MTY0ODk5NzM5X9VhXvtIQ1conYbyl2f_UzYpOh51gPNbLRqqk7vQQcNq226UhDBLbwlBwCJoxAoVj3LaiUkygHwusYzd5UQjJb2WXlpq4QUEJCRuj4pi2Gk4Qf4DZYa3ecv5BNEb1S8PPBNjH9b8pghiXENEV8lfQPvBZIHEGFIRpvlB1YXv7w9-NOcvvSeGstqGWUB1MkpcLw7QoA\
+    phantom_api_key:
+        type: secret
+        default: fDKW7owlLjFMgB06cl8VjWYbWUO/uHmpAazxPw5+8V6DeKhTUjZKhnhl++5N9c6YYkRp7o5ndruczpxnSluu5UNM9MNUunfOjxCc/UkIy8HkQGB+UHStnHdnZledd3dmQGSMicETMiYJsZkvb57HM1uMeKohZAZfrjtZ0vJO5aLHhOZEqMf+M2ytdJdE2lY3kJhON0upUJeMMvzFXI+0dVZfSSs9xIVrUqGBvumQci2vVZPx1Jz9wuOoSDftr7nv5ptNKF9mNewRRnuvOK2hLFXdA3gGB3ThG5K2Q+PZLq+Q6Jn2v3jMof3WexZWM5GVGSPPHGsXGi2MRmKzMrPdvHCW7Uc+VQ2XskWbuQoi2fDHRk3yO66PntmerW/pkBxKAPYDoOq5y3ep8zLtETayEdmCggSjQELkVF2/PoSHMdFKiXtz4wlLl7drAf5bq3uqP47mz7EkvlXTIf8zDxK+4FfetyR76MRda7KQE52mMPZ7qF+xbS7613AFcA/0TQ23HT09Uds63eTyKUilBDcfNPZM0m/az3WCU0g5q4kLv7so7ISLI5VVLXSGh5T6F0Rubh66XdXLhSyRuTGQ/ZDFqPZd8uv2cd+AAhZtxLzhwpu11mD0oLz4a31LuDK0b87M6ZGtlMI3omBuhsg51rA8nS6RKy4SbrfGjo3cL0x82jQ=
+        key: awskms:///arn:aws:kms:us-east-1:381492128837:key/mrk-b5de2955e645426a9dfd18dcd0cb3ca5
