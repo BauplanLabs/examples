@@ -1,0 +1,144 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.13.14"
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "0b444faec7fa5b146b32ebf599907413",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Warning: unknown profile key output in /Users/apo/.bauplan/config.yml\n"
+        }
+      ]
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "a7818a826c41b5da74b49a24bf1164e8",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "2843a3e7534772d4e7a0f74123b33735",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='vblA-0' random-id='74b263a9-5ac5-8f03-092a-d448ccf9259d'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:19:38.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:48,&#92;&quot;trip_miles&#92;&quot;:0.94},{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:58:39.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:246,&#92;&quot;trip_miles&#92;&quot;:2.78},{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:20:27.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:9,&#92;&quot;trip_miles&#92;&quot;:8.81},{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:41:05.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:129,&#92;&quot;trip_miles&#92;&quot;:0.67},{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:52:47.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:129,&#92;&quot;trip_miles&#92;&quot;:4.38}]&quot;' data-total-rows='5' data-total-columns='3' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;pickup_datetime&quot;, [&quot;unknown&quot;, &quot;datetime64[us, UTC]&quot;]], [&quot;PULocationID&quot;, [&quot;integer&quot;, &quot;int64&quot;]], [&quot;trip_miles&quot;, [&quot;number&quot;, &quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "4044f0fd253b5f59ed9fc446a8945214",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='bkHC-0' random-id='7206995d-fc04-4882-306d-71c678876c36'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;LocationID&#92;&quot;:1,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Newark Airport&#92;&quot;},{&#92;&quot;LocationID&#92;&quot;:2,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Jamaica Bay&#92;&quot;},{&#92;&quot;LocationID&#92;&quot;:3,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Allerton/Pelham Gardens&#92;&quot;},{&#92;&quot;LocationID&#92;&quot;:4,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Alphabet City&#92;&quot;},{&#92;&quot;LocationID&#92;&quot;:5,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Arden Heights&#92;&quot;}]&quot;' data-total-rows='5' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;LocationID&quot;, [&quot;integer&quot;, &quot;int64&quot;]], [&quot;Zone&quot;, [&quot;string&quot;, &quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "b70e764b2b02d9d27a4945ba71355b65",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "6204bdba872902011565dfd9ff759d03",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "b68794295f066d5134e162e005771588",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Xref-0' random-id='e3cfdcde-ac27-db2d-8383-e9c98d65c767'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:19:38.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:48,&#92;&quot;trip_miles&#92;&quot;:0.94,&#92;&quot;LocationID&#92;&quot;:48,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Clinton East&#92;&quot;},{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:58:39.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:246,&#92;&quot;trip_miles&#92;&quot;:2.78,&#92;&quot;LocationID&#92;&quot;:246,&#92;&quot;Zone&#92;&quot;:&#92;&quot;West Chelsea/Hudson Yards&#92;&quot;},{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:20:27.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:9,&#92;&quot;trip_miles&#92;&quot;:8.81,&#92;&quot;LocationID&#92;&quot;:9,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Auburndale&#92;&quot;},{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:41:05.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:129,&#92;&quot;trip_miles&#92;&quot;:0.67,&#92;&quot;LocationID&#92;&quot;:129,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Jackson Heights&#92;&quot;},{&#92;&quot;pickup_datetime&#92;&quot;:&#92;&quot;2023-01-01T00:52:47.000Z&#92;&quot;,&#92;&quot;PULocationID&#92;&quot;:129,&#92;&quot;trip_miles&#92;&quot;:4.38,&#92;&quot;LocationID&#92;&quot;:129,&#92;&quot;Zone&#92;&quot;:&#92;&quot;Jackson Heights&#92;&quot;}]&quot;' data-total-rows='5' data-total-columns='5' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;pickup_datetime&quot;, [&quot;unknown&quot;, &quot;datetime64[us, UTC]&quot;]], [&quot;PULocationID&quot;, [&quot;integer&quot;, &quot;int64&quot;]], [&quot;trip_miles&quot;, [&quot;number&quot;, &quot;float64&quot;]], [&quot;LocationID&quot;, [&quot;integer&quot;, &quot;int64&quot;]], [&quot;Zone&quot;, [&quot;string&quot;, &quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "70e988eaa64e718b3659ee3588e73bf2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "4e431a2273ee15c03aaf713289477141",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "1c19253c1d26946e930ba2d534c4778a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='RGSE-0' random-id='f5d5c145-7fde-9309-c4f0-230ef6c12fc0'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Zone&#92;&quot;:&#92;&quot;Allerton/Pelham Gardens&#92;&quot;,&#92;&quot;log_trip_miles&#92;&quot;:0.5912148756},{&#92;&quot;Zone&#92;&quot;:&#92;&quot;Alphabet City&#92;&quot;,&#92;&quot;log_trip_miles&#92;&quot;:0.5214115363},{&#92;&quot;Zone&#92;&quot;:&#92;&quot;Arden Heights&#92;&quot;,&#92;&quot;log_trip_miles&#92;&quot;:0.7297338001},{&#92;&quot;Zone&#92;&quot;:&#92;&quot;Arrochar/Fort Wadsworth&#92;&quot;,&#92;&quot;log_trip_miles&#92;&quot;:0.6967656475},{&#92;&quot;Zone&#92;&quot;:&#92;&quot;Astoria&#92;&quot;,&#92;&quot;log_trip_miles&#92;&quot;:0.5780979538}]&quot;' data-total-rows='5' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;log_trip_miles&quot;, [&quot;number&quot;, &quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-row-headers='[&quot;Zone&quot;]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    }
+  ]
+}
