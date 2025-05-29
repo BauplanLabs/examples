@@ -14,11 +14,13 @@ def trips_and_zones(
         columns=['LocationID', 'Zone']
     ),
 ):
-     from your_notebook import join_taxi_tables
-     import pandas as pd
-     
-    # we re-use the marimo function - it accepts two pandas DataFrames, so we convert the Arrow tables to pandas
-     return join_taxi_tables(trips.to_pandas(), zones.to_pandas())
+    # import the necessary libraries
+    import pandas as pd
+    # make sure to import the marimo function you want to use
+    from your_notebook import join_taxi_tables
+
+    # we re-use the marimo function - it accepts two pandas DataFrames, so we convert the Arrow tables
+    return join_taxi_tables(trips.to_pandas(), zones.to_pandas())
 
 
 @bauplan.model()
@@ -26,7 +28,10 @@ def trips_and_zones(
 def normalized_taxi_trips(
     data=bauplan.Model('trips_and_zones')
 ):
-    from your_notebook import compute_stats_by_zone
+    # import the necessary libraries
     import pandas as pd
-    # re-use marimo function - it accepts a pandas DataFrame as input so we convert the Arrow table to pandas
+    import numpy as np
+    # make sure to import the marimo function you want to use
+    from your_notebook import compute_stats_by_zone
+    # re-use marimo function - it accepts a pandas DataFrame as input so we convert the Arrow table
     return compute_stats_by_zone(data.to_pandas())

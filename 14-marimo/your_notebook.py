@@ -3,6 +3,11 @@ import marimo
 __generated_with = "0.13.14"
 app = marimo.App(width="medium")
 
+with app.setup:
+    # Initialization code that runs before all other cells
+    import pandas as pd
+    import numpy as np
+
 
 @app.cell
 def _():
@@ -15,7 +20,6 @@ def _():
 
 @app.cell
 def _(bpln_client):
-    import pandas as pd
     # get data from the lakehouse in Python
     branch = 'main' # since we are just reading now, get the "prod" version of my tables
     table_1 ='taxi_fhvhv'
@@ -38,7 +42,7 @@ def _(bpln_client):
         ref=branch,
         columns=columns_2
     ).to_pandas()
-    return pd, table_1_df, table_2_df
+    return table_1_df, table_2_df
 
 
 @app.cell
@@ -53,15 +57,13 @@ def _(table_2_df):
     return
 
 
-@app.cell
-def _(pd):
-    def join_taxi_tables(table_1: pd.DataFrame, table_2: pd.DataFrame) -> pd.DataFrame:
-        return pd.merge(table_1, table_2, left_on='PULocationID', right_on='LocationID')
-    return (join_taxi_tables,)
+@app.function
+def join_taxi_tables(table_1: pd.DataFrame, table_2: pd.DataFrame) -> pd.DataFrame:
+    return pd.merge(table_1, table_2, left_on='PULocationID', right_on='LocationID')
 
 
 @app.cell
-def _(join_taxi_tables, table_1_df, table_2_df):
+def _(table_1_df, table_2_df):
     parent_df = join_taxi_tables(table_1_df, table_2_df)
     return (parent_df,)
 
@@ -72,29 +74,26 @@ def _(parent_df):
     return
 
 
-@app.cell
-def _(pd):
-    def compute_stats_by_zone(df: pd.DataFrame) -> pd.DataFrame:
-        import numpy as np
-        # clean up the dataset by excluding certain rows
-        time_filter = pd.to_datetime('2022-01-01')
-        time_filter_utc = time_filter.tz_localize('UTC')
-        # filter df by timestamp
-        df = df[df['pickup_datetime'] >= time_filter_utc]
-        # exclude rows with trip_miles = 0
-        df = df[df['trip_miles'] > 0.0]
-        # exclude rows with trip_miles > 200
-        df = df[df['trip_miles'] < 200.0]
-        # create a new columns with log-transformed trip_miles to better model skewed distribution
-        df['log_trip_miles'] = np.log10(df['trip_miles'])
+@app.function
+def compute_stats_by_zone(df: pd.DataFrame) -> pd.DataFrame:
+    # clean up the dataset by excluding certain rows
+    time_filter = pd.to_datetime('2022-01-01')
+    time_filter_utc = time_filter.tz_localize('UTC')
+    # filter df by timestamp
+    df = df[df['pickup_datetime'] >= time_filter_utc]
+    # exclude rows with trip_miles = 0
+    df = df[df['trip_miles'] > 0.0]
+    # exclude rows with trip_miles > 200
+    df = df[df['trip_miles'] < 200.0]
+    # create a new columns with log-transformed trip_miles to better model skewed distribution
+    df['log_trip_miles'] = np.log10(df['trip_miles'])
 
-        # return a Pandas dataframe as the average log_miles per zone
-        return df[['Zone', 'log_trip_miles']].groupby(['Zone']).mean()
-    return (compute_stats_by_zone,)
+    # return a Pandas dataframe as the average log_miles per zone
+    return df[['Zone', 'log_trip_miles']].groupby(['Zone']).median()
 
 
 @app.cell
-def _(compute_stats_by_zone, parent_df):
+def _(parent_df):
     child_df = compute_stats_by_zone(parent_df)
     return (child_df,)
 
@@ -102,6 +101,11 @@ def _(compute_stats_by_zone, parent_df):
 @app.cell
 def _(child_df):
     child_df.head()
+    return
+
+
+@app.cell
+def _():
     return
 
 
