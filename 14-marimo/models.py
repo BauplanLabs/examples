@@ -23,9 +23,9 @@ def trips_and_zones(
     return join_taxi_tables(trips.to_pandas(), zones.to_pandas())
 
 
-@bauplan.model()
+@bauplan.model(materialization_strategy='REPLACE')
 @bauplan.python('3.11', pip={'pandas': '2.2.0', 'marimo': '0.13.14'})
-def normalized_taxi_trips(
+def stats_by_taxi_zones(
     data=bauplan.Model('trips_and_zones')
 ):
     # import the necessary libraries
