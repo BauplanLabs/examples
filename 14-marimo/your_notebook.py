@@ -5,8 +5,7 @@ app = marimo.App(width="medium")
 
 with app.setup:
     # Initialization code that runs before all other cells
-    import pandas as pd
-    import numpy as np
+    import polars as pl
 
 
 @app.cell
@@ -29,19 +28,19 @@ def _(bpln_client):
     columns_2 = ['LocationID', 'Zone']
 
     # get first table
-    table_1_df = bpln_client.scan(
+    table_1_df = pl.from_arrow(bpln_client.scan(
         table=table_1,
         ref=branch,
         columns=columns_1,
         filters=filter_1
-    ).to_pandas()
+    ))
 
     # get second table
-    table_2_df = bpln_client.scan(
+    table_2_df = pl.from_arrow(bpln_client.scan(
         table=table_2,
         ref=branch,
         columns=columns_2
-    ).to_pandas()
+    ))
     return table_1_df, table_2_df
 
 
@@ -58,8 +57,8 @@ def _(table_2_df):
 
 
 @app.function
-def join_taxi_tables(table_1: pd.DataFrame, table_2: pd.DataFrame) -> pd.DataFrame:
-    return pd.merge(table_1, table_2, left_on='PULocationID', right_on='LocationID')
+def join_taxi_tables(table_1: pl.DataFrame, table_2: pl.DataFrame) -> pl.DataFrame:
+    return table_1.join(table_2, left_on="PULocationID", right_on='LocationID', how="full", coalesce=True)
 
 
 @app.cell
@@ -75,21 +74,29 @@ def _(parent_df):
 
 
 @app.function
-def compute_stats_by_zone(df: pd.DataFrame) -> pd.DataFrame:
+def compute_stats_by_zone(df: pl.DataFrame) -> pl.DataFrame:
+    from datetime import datetime, timezone
     # clean up the dataset by excluding certain rows
-    time_filter = pd.to_datetime('2022-01-01')
-    time_filter_utc = time_filter.tz_localize('UTC')
-    # filter df by timestamp
-    df = df[df['pickup_datetime'] >= time_filter_utc]
-    # exclude rows with trip_miles = 0
-    df = df[df['trip_miles'] > 0.0]
-    # exclude rows with trip_miles > 200
-    df = df[df['trip_miles'] < 200.0]
-    # create a new columns with log-transformed trip_miles to better model skewed distribution
-    df['log_trip_miles'] = np.log10(df['trip_miles'])
-
-    # return a Pandas dataframe as the average log_miles per zone
-    return df[['Zone', 'log_trip_miles']].groupby(['Zone']).median()
+    time_filter = datetime(2022, 1, 1, tzinfo=timezone.utc)
+    # filter df by timestamp, exclude rows with trip_miles = 0 and trip_miles > 200
+    df = df.filter(
+        (pl.col("pickup_datetime") >= pl.lit(time_filter))
+        & (pl.col("trip_miles") > 0.0)
+        & (pl.col("trip_miles") < 200.0)
+    ).with_columns(
+        # create a new columns with log-transformed trip_miles to better model skewed distribution
+        pl.col("trip_miles").log10().alias("log_trip_miles")
+    )    
+    result = (
+        df
+        .select(["Zone", "log_trip_miles"])
+        .group_by("Zone")
+        .agg(
+            pl.col("log_trip_miles").median().alias("log_trip_miles")
+        )
+    )
+    # return a polars
+    return result
 
 
 @app.cell
