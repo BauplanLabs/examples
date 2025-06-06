@@ -1,2 +1,0 @@
-bauplan
-marimo==0.13.14
