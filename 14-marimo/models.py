@@ -17,7 +17,7 @@ def trips_and_zones(
     # import the necessary libraries
     import polars as pl
     # make sure to import the marimo function you want to use
-    from your_notebook import join_taxi_tables
+    from taxi_notebook import join_taxi_tables
 
     # re-use marimo function - it accepts polars DataFrames as input
     # note that this is zero-copy, so the conversion is free
@@ -32,7 +32,7 @@ def stats_by_taxi_zones(
     # import the necessary libraries
     import polars as pl
     # make sure to import the marimo function you want to use
-    from your_notebook import compute_stats_by_zone
+    from taxi_notebook import compute_stats_by_zone
     # re-use marimo function - it accepts a polars DataFrame as input
     # note that this is zero-copy, so the conversion is free
     return compute_stats_by_zone(pl.from_arrow(data)).to_arrow() # we return Arrow
