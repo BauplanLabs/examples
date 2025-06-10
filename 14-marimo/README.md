@@ -20,6 +20,10 @@ Inside the `14-marimo` folder, run:
 uv sync
 ```
 
+### Get a Bauplan key
+
+Sign up for a free account in the Bauplan sandbox [here](https://accounts.bauplanlabs.com/sign-up) and get your API key from the dashboard. Follow the docs to [configure your key](https://docs.bauplanlabs.com/en/latest/tutorial/00_installation.html).
+
 ## Run the marimo notebook
 
 Start the notebook with:
