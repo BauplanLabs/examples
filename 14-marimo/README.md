@@ -4,6 +4,11 @@ This project demonstrates how to build and run a reactive, production-grade data
 
 > No DSLs. No Spark. No fragile notebooks. Just Python.
 
+Quick links:
+
+* the full [blog post](https://www.bauplanlabs.com/blog/everything-as-python), with background materials and context;
+* the marimo [video](https://www.youtube.com/watch?v=uydisCi5rWE), a 5-min live demo of this workflow in action.
+
 ## Setup
 
 ### Install `uv` (Python package manager) and sync the environment
