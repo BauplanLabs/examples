@@ -55,7 +55,7 @@ def create_iceberg_table(
 ):
     cursor = connection.cursor()
     create_table_query = f"""
-        CREATE OR REPLACE TABLE {table_name}
+        CREATE TABLE {table_name}
         USING iceberg
         LOCATION '{metadata_location}'
     """
@@ -89,7 +89,6 @@ def run_bauplan_pipeline_on_a_branch():
     return client.get_table('unity_trips', ref=my_branch_name).metadata_location
 
 
-
 def run_and_sync_with_unity(
     server_hostname: str,
     http_path: str,
@@ -119,7 +118,8 @@ def run_and_sync_with_unity(
         
         # -- Step 2: Run the Bauplan pipeline to create the Iceberg table
         metadata_location = run_bauplan_pipeline_on_a_branch()
-        print(f"====> Bauplan pipeline completed. Metadata location: {metadata_location}")
+        json_file = metadata_location.split('/')[-1]
+        print(f"====> Bauplan pipeline completed. Metadata location: {json_file}")
     
         # -- Step 3: Create the external Iceberg table
         create_iceberg_table(
