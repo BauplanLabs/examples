@@ -1,24 +1,26 @@
-"""
-
-Sample project to simulate a data pipeline in Bauplan writing a final table backed by
-Iceberg - the outer loop (the caller) will then add this table to the Unity Catalog.
-
-"""
-
 import bauplan
 
-@bauplan.model()
-@bauplan.python('3.11')
+
+@bauplan.model(
+    columns=[ 
+        'pickup_datetime',
+        'PULocationID',
+        'trip_miles',
+        'trip_time',
+        'Borough'
+    ]             
+)
+@bauplan.python('3.10')
 def trips_and_zones(
         trips=bauplan.Model('my_trips'),   
-        zones=bauplan.Model('taxi_zones'),
+        zones=bauplan.Model('taxi_zones', columns=['LocationID', 'Borough'])
 ):
     pickup_location_table = trips.join(zones, 'PULocationID', 'LocationID').combine_chunks()
     return pickup_location_table
 
 
 @bauplan.model(materialization_strategy='REPLACE')
-@bauplan.python('3.11', pip={'pandas': '1.5.3', 'numpy': '1.23.2'})
+@bauplan.python('3.11', pip={'pandas': '2.2', 'numpy': '1.23.2'})
 def unity_trips(
     data=bauplan.Model('trips_and_zones')
 ):
@@ -37,3 +39,4 @@ def unity_trips(
     df['log_trip_miles'] = np.log10(df['trip_miles'])
 
     return df
+

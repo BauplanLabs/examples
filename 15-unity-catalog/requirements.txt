@@ -1,1 +1,3 @@
 databricks-sql-connector==4.0.4
+pyiceberg==0.9.1
+avro==1.12.0

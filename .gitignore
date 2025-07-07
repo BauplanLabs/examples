@@ -162,3 +162,5 @@ cython_debug/
 .DS_Store
 
 __marimo__/
+
+.pyiceberg.yaml
