@@ -8,8 +8,17 @@ from typing import List, Optional, Tuple
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.patches import Rectangle
-import pyarrow as pa
+from tasks import small_pipeline, big_pipeline, small_query, big_query
 
+
+# Task type mapping
+TASK_TYPES = {
+    "small_query": small_query,
+    "big_query": big_query,
+    "small_pipeline_dry_run": lambda profile, task_id: small_pipeline(profile, task_id, dry_run=True),
+    "small_pipeline_materialization": lambda profile, task_id: small_pipeline(profile, task_id, dry_run=False),
+    "big_pipeline_materialization": lambda profile, task_id: big_pipeline(profile, task_id, dry_run=False)
+}
 
 @dataclass
 class TaskResult:
@@ -27,98 +36,6 @@ class TaskResult:
             self.duration = (self.end_time - self.start_time).total_seconds()
 
 
-# Bauplan SDK task functions
-
-def small_query(profile: str, task_id: str) -> bool:
-    print(f"[{threading.current_thread().name}] Executing small query - Task ID: {task_id}")
-    bpl_client = bauplan.Client(profile=profile)
-    rows = bpl_client.query("""
-        SELECT 
-            SUM(trip_time)
-        FROM  taxi_fhvhv
-        WHERE pickup_datetime >= '2022-12-30T00:00:00-05:00'
-        AND pickup_datetime < '2023-01-01T00:00:00-05:00'
-    """)
-    assert type(rows) is pa.Table, "Expected a PyArrow Table from the query"
-    assert len(rows) == 1, "No rows returned from small query"
-    del bpl_client
-    
-    return True
-
-
-def big_query(profile: str, task_id: str) -> bool:
-    print(f"[{threading.current_thread().name}] Executing big query - Task ID: {task_id}")
-    bpl_client = bauplan.Client(profile=profile)
-    rows = bpl_client.query("""
-        SELECT 
-            pickup_datetime,
-            PULocationID,
-            trip_miles,
-            trip_time
-        FROM  taxi_fhvhv
-        WHERE pickup_datetime >= '2022-07-30T00:00:00-05:00'
-        AND pickup_datetime < '2023-01-01T00:00:00-05:00'
-    """)
-    assert type(rows) is pa.Table, "Expected a PyArrow Table from the query"
-    assert len(rows) > 0, "No rows returned from the query"
-    del bpl_client
-    
-    return True
-
-
-def small_pipeline(profile: str, task_id: str, dry_run: bool = False) -> bool:
-    print(f"[{threading.current_thread().name}] Executing small pipeline, dry_run {dry_run} - Task ID: {task_id}")
-    bpl_client = bauplan.Client(profile=profile)
-    user = bpl_client.info().user
-    username = user.username
-    tmp_branch_name = f'{username}.small_pipeline_{task_id}'
-    bpl_client.create_branch(tmp_branch_name, 'main')
-    run_state = bpl_client.run(
-        'bpln_pipeline',
-        ref=tmp_branch_name,
-        dry_run=dry_run
-    )
-    bpl_client.delete_branch(tmp_branch_name)
-    del bpl_client
-    
-    if run_state.job_status.lower() != 'success':
-        raise Exception("Run not completed!")
-    
-    return True
-
-
-def big_pipeline(profile: str, task_id: str, dry_run: bool = False) -> bool:
-    print(f"[{threading.current_thread().name}] Executing big pipeline, dry_run {dry_run} - Task ID: {task_id}")
-    bpl_client = bauplan.Client(profile=profile)
-    user = bpl_client.info().user
-    username = user.username
-    tmp_branch_name = f'{username}.big_pipeline_{task_id}'
-    bpl_client.create_branch(tmp_branch_name, 'main')
-    run_state = bpl_client.run(
-        'bpln_pipeline',
-        ref=tmp_branch_name,
-        dry_run=dry_run,
-        parameters={'start_trip_date': '2022-05-01T00:00:00-05:00'}
-    )
-    bpl_client.delete_branch(tmp_branch_name)
-    del bpl_client
-    
-    if run_state.job_status.lower() != 'success':
-        raise Exception("Run not completed!")
-    
-    return True
-
-
-# Task type mapping
-TASK_TYPES = {
-    "small_query": small_query,
-    "big_query": big_query,
-    "small_pipeline_dry_run": lambda profile, task_id: small_pipeline(profile, task_id, dry_run=True),
-    "small_pipeline_materialization": lambda profile, task_id: small_pipeline(profile, task_id, dry_run=False),
-    "big_pipeline_materialization": lambda profile, task_id: big_pipeline(profile, task_id, dry_run=False)
-}
-
-
 def execute_task(profile: str, task_type: str, task_id: str) -> TaskResult:
     result = TaskResult(
         task_id=task_id,
@@ -131,7 +48,6 @@ def execute_task(profile: str, task_type: str, task_id: str) -> TaskResult:
         success = task_func(profile, task_id)
         result.success = success
     except Exception as e:
-        print(f"[{threading.current_thread().name}] ERROR: Task {task_id} failed: {str(e)}")
         result.error = e
     finally:
         result.end_time = datetime.now()
@@ -144,7 +60,7 @@ def generate_random_tasks(num_tasks: int, seed: int = 42) -> List[Tuple[str, str
     task_types = list(TASK_TYPES.keys())
     tasks = []
     
-    # First, ensure each task type appears at least once if we have enough tasks
+    # Ensure each task type appears at least once if we have enough tasks
     if num_tasks >= len(task_types):
         for i, task_type in enumerate(task_types):
             task_id = f"{task_type}_{i:03d}"
@@ -223,8 +139,10 @@ def create_gantt_chart(results: List[TaskResult], filename: str):
     
     plt.tight_layout()
     plt.savefig(filename, dpi=300, bbox_inches='tight')
-    print(f"\nGantt chart saved to {filename}")
+    print(f"\nChart saved to {filename}")
     plt.close()
+    
+    return
 
 
 def simulate_load(
@@ -255,8 +173,8 @@ def simulate_load(
         for future in as_completed(future_to_task):
             task_type, task_id = future_to_task[future]
             result = future.result()
-            status = "SUCCESS" if result.success else "FAILED"
-            print(f"[{threading.current_thread().name}] Task {task_id} completed - Status: {status}")
+            status = "SUCCESS" if result.success else f"FAILED ({result.error}"
+            print(f"[{threading.current_thread().name}] Task {task_id} completed - {status}")
             results.append(result)
         
      
