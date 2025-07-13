@@ -1,0 +1,9 @@
+project:
+    id: 8048ce66-49c6-4f43-a487-afe22f6b05d3
+    name: scheduling_test
+
+
+parameters:
+    start_trip_date:
+        type: str
+        default: '2022-12-01T00:00:00-05:00'
