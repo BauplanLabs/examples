@@ -29,10 +29,6 @@ class TaskResult:
     start_time: Optional[datetime] = None
     end_time: Optional[datetime] = None
     duration: Optional[float] = None
-    
-    def __post_init__(self):
-        if self.start_time and self.end_time:
-            self.duration = (self.end_time - self.start_time).total_seconds()
 
 
 def execute_task(profile: str, task_type: str, task_id: str) -> TaskResult:
@@ -50,6 +46,7 @@ def execute_task(profile: str, task_type: str, task_id: str) -> TaskResult:
         result.error = e
     finally:
         result.end_time = datetime.now()
+        result.duration = (result.end_time - result.start_time).total_seconds()
     
     return result
 
@@ -83,20 +80,7 @@ def generate_random_tasks(num_tasks: int, seed: int = 42) -> List[Tuple[str, str
 
 
 def create_gantt_chart(results: List[TaskResult], filename: str):
-    # Calculate height based on number of results
-    base_height = max(6, len(results) * 0.3)
-    
-    # Limit total pixels: matplotlib has a limit of 2^16 (65536) pixels per dimension
-    # With DPI of 300, max height = 65536/300 ≈ 218 inches
-    # Use 150 inches as safe maximum
-    height = min(base_height, 150)
-    
-    # If still too large, reduce DPI
-    dpi = 300
-    if height * dpi > 60000:  # Leave some margin below 65536
-        dpi = int(60000 / height)
-    
-    fig, ax = plt.subplots(figsize=(12, height))
+    fig, ax = plt.subplots(figsize=(8, 4))
     
     # Sort results by start time
     sorted_results = sorted(results, key=lambda x: x.start_time)
@@ -125,15 +109,14 @@ def create_gantt_chart(results: List[TaskResult], filename: str):
                 color=color, alpha=0.8, 
                 label=result.task_type if i == 0 else "")
         
-        # Add task ID as text
-        ax.text(start + duration/2, i, result.task_id, 
-                ha='center', va='center', fontsize=8, color='white')
-    
+        # Add a shorter version of task ID as text
+        short_task_id = f"{result.task_id[:5]}_{result.task_id.split('_')[-1]}"
+        ax.text(start, i, short_task_id, ha='left', va='center', fontsize=8, color='black')
+
     # Format the plot
     ax.set_ylim(-0.5, len(results) - 0.5)
     ax.set_xlabel('Time')
     ax.set_ylabel('Tasks')
-    ax.set_title('Task Execution Gantt Chart')
     
     # Format x-axis to show time
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
@@ -149,9 +132,8 @@ def create_gantt_chart(results: List[TaskResult], filename: str):
     # Add grid
     ax.grid(True, axis='x', alpha=0.3)
     
-    plt.tight_layout()
-    plt.savefig(filename, dpi=dpi, bbox_inches='tight')
-    print(f"\nChart saved to {filename} (DPI: {dpi})")
+    plt.savefig(filename, bbox_inches='tight')
+    print(f"\nChart saved to {filename}")
     plt.close()
     
     return
@@ -186,12 +168,11 @@ def simulate_load(
             task_type, task_id = future_to_task[future]
             result = future.result()
             status = "SUCCESS" if result.success else f"FAILED ({result.error}"
-            print(f"[{threading.current_thread().name}] Task {task_id} completed - {status}")
+            print(f"[{threading.current_thread().name}] {task_id} completed - {status}, {result.duration:.2f} seconds")
             results.append(result)
-        
-     
-    assert results, "No tasks were executed. Check the task generation logic."   
-        
+
+    assert results, "No tasks were executed. Check the task generation logic."
+
     ### Summary stats and final chart    
         
     successful_tasks = sum(1 for r in results if r.success)
@@ -224,9 +205,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Simulate load for scheduling test.")
     parser.add_argument('--bpln_profile', default='default')
     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
-    parser.add_argument('--num_threads', type=int, default=4, help='Number of threads to use for simulation')
-    parser.add_argument('--num_tasks', type=int, default=3, help='Number of tasks to simulate')
-    parser.add_argument('--chart_file_path', type=str, default='task_gantt_chart.png', help='Output path for Gantt chart')
+    parser.add_argument('--num_threads', type=int, default=20, help='Number of threads to use for simulation')
+    parser.add_argument('--num_tasks', type=int, default=40, help='Number of tasks to simulate')
+    parser.add_argument('--chart_file_path', type=str, default='task_chart.png', help='Output path for Gantt chart')
     args = parser.parse_args()
     # now start the main function
     simulate_load(
