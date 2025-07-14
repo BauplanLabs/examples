@@ -20,7 +20,7 @@ def small_query(profile: str, task_id: str) -> bool:
         FROM  taxi_fhvhv
         WHERE pickup_datetime >= '2022-12-30T00:00:00-05:00'
         AND pickup_datetime < '2023-01-01T00:00:00-05:00'
-    """)
+    """.strip(), cache='off')
     assert type(rows) is pa.Table, "Expected a PyArrow Table from the query"
     assert len(rows) == 1, "No rows returned from small query"
     del bpl_client
@@ -40,7 +40,7 @@ def big_query(profile: str, task_id: str) -> bool:
         FROM  taxi_fhvhv
         WHERE pickup_datetime >= '2022-07-30T00:00:00-05:00'
         AND pickup_datetime < '2023-01-01T00:00:00-05:00'
-    """)
+    """.strip(), cache='off')
     assert type(rows) is pa.Table, "Expected a PyArrow Table from the query"
     assert len(rows) > 0, "No rows returned from the query"
     del bpl_client
@@ -58,6 +58,7 @@ def small_pipeline(profile: str, task_id: str, dry_run: bool = False) -> bool:
     run_state = bpl_client.run(
         'bpln_pipeline/',
         ref=tmp_branch_name,
+        cache='off',
         dry_run=dry_run
     )
     bpl_client.delete_branch(tmp_branch_name)
@@ -79,6 +80,7 @@ def big_pipeline(profile: str, task_id: str, dry_run: bool = False) -> bool:
     run_state = bpl_client.run(
         'bpln_pipeline/',
         ref=tmp_branch_name,
+        cache='off',
         dry_run=dry_run,
         parameters={'start_trip_date': '2022-05-01T00:00:00-05:00'}
     )

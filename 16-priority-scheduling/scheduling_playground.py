@@ -1,4 +1,3 @@
-import bauplan
 from datetime import datetime
 import random
 import threading
@@ -84,7 +83,20 @@ def generate_random_tasks(num_tasks: int, seed: int = 42) -> List[Tuple[str, str
 
 
 def create_gantt_chart(results: List[TaskResult], filename: str):
-    fig, ax = plt.subplots(figsize=(12, max(6, len(results) * 0.3)))
+    # Calculate height based on number of results
+    base_height = max(6, len(results) * 0.3)
+    
+    # Limit total pixels: matplotlib has a limit of 2^16 (65536) pixels per dimension
+    # With DPI of 300, max height = 65536/300 ≈ 218 inches
+    # Use 150 inches as safe maximum
+    height = min(base_height, 150)
+    
+    # If still too large, reduce DPI
+    dpi = 300
+    if height * dpi > 60000:  # Leave some margin below 65536
+        dpi = int(60000 / height)
+    
+    fig, ax = plt.subplots(figsize=(12, height))
     
     # Sort results by start time
     sorted_results = sorted(results, key=lambda x: x.start_time)
@@ -138,8 +150,8 @@ def create_gantt_chart(results: List[TaskResult], filename: str):
     ax.grid(True, axis='x', alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig(filename, dpi=300, bbox_inches='tight')
-    print(f"\nChart saved to {filename}")
+    plt.savefig(filename, dpi=dpi, bbox_inches='tight')
+    print(f"\nChart saved to {filename} (DPI: {dpi})")
     plt.close()
     
     return
@@ -213,7 +225,7 @@ if __name__ == "__main__":
     parser.add_argument('--bpln_profile', default='default')
     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
     parser.add_argument('--num_threads', type=int, default=4, help='Number of threads to use for simulation')
-    parser.add_argument('--num_tasks', type=int, default=10, help='Number of tasks to simulate')
+    parser.add_argument('--num_tasks', type=int, default=3, help='Number of tasks to simulate')
     parser.add_argument('--chart_file_path', type=str, default='task_gantt_chart.png', help='Output path for Gantt chart')
     args = parser.parse_args()
     # now start the main function
