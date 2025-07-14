@@ -5,7 +5,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 from matplotlib.patches import Rectangle
 from tasks import small_pipeline, big_pipeline, small_query, big_query
 
@@ -95,33 +94,37 @@ def create_gantt_chart(results: List[TaskResult], filename: str):
         "big_pipeline_materialization": "#e67e22"
     }
     
+    # Find the earliest start time to use as reference
+    min_start_time = min(result.start_time for result in sorted_results)
+    
     # Create bars for each task
     for i, result in enumerate(sorted_results):
-        start = mdates.date2num(result.start_time)
-        end = mdates.date2num(result.end_time)
-        duration = end - start
+        # Calculate start and duration in seconds from the reference time
+        start_seconds = (result.start_time - min_start_time).total_seconds()
+        duration_seconds = result.duration
         
         color = colors.get(result.task_type, "#95a5a6")
         if not result.success:
             color = "#c0392b"  # Red for failed tasks
         
-        ax.barh(i, duration, left=start, height=0.8, 
+        ax.barh(i, duration_seconds, left=start_seconds, height=0.8, 
                 color=color, alpha=0.8, 
                 label=result.task_type if i == 0 else "")
         
         # Add a shorter version of task ID as text
         short_task_id = f"{result.task_id[:5]}_{result.task_id.split('_')[-1]}"
-        ax.text(start, i, short_task_id, ha='left', va='center', fontsize=8, color='black')
+        ax.text(start_seconds, i, short_task_id, ha='left', va='center', fontsize=8, color='black')
 
     # Format the plot
-    ax.set_ylim(-0.5, len(results) - 0.5)
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Tasks')
+    ax.set_ylim(-0.5, len(results))
+    ax.set_xlabel('Time (seconds)')
+    ax.set_ylabel('')
+    ax.set_yticks([])
     
-    # Format x-axis to show time
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
-    ax.xaxis.set_major_locator(mdates.SecondLocator(interval=1))
-    plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha='right')
+    # Set x-axis limits
+    max_end_seconds = max((result.start_time - min_start_time).total_seconds() + result.duration 
+                          for result in sorted_results)
+    ax.set_xlim(0, max_end_seconds * 1.05)  # Add 5% padding
     
     # Add legend
     handles = [Rectangle((0, 0), 1, 1, color=color) for task_type, color in colors.items()]
@@ -136,6 +139,37 @@ def create_gantt_chart(results: List[TaskResult], filename: str):
     print(f"\nChart saved to {filename}")
     plt.close()
     
+    return
+
+
+def draw_query_vs_pipeline_duration(results: List[TaskResult], filename: str, size: str = "small"):
+    # Filter durations based on size parameter
+    query_type = f"{size}_query"
+    pipeline_prefix = f"{size}_pipeline"
+    
+    query_durations = [r.duration for r in results if r.task_type == query_type and r.success]
+    pipeline_durations = [r.duration for r in results if r.task_type.startswith(pipeline_prefix) and r.success]
+    assert query_durations and pipeline_durations, "No successful tasks found for the specified size."
+    
+    plt.figure(figsize=(10, 6))
+    
+    # Plot histograms with transparency
+    plt.hist(query_durations, bins=20, alpha=0.6, color="#3498db", 
+            label=f'{size.capitalize()} Queries', density=True)
+    plt.hist(pipeline_durations, bins=20, alpha=0.6, color="#2ecc71", 
+            label=f'{size.capitalize()} Pipelines', density=True)
+    
+    plt.xlabel('Duration (seconds)')
+    plt.ylabel('Density')
+    plt.title(f'Durations {size.capitalize()} Queries vs {size.capitalize()} Pipelines')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    
+    # Save the distribution chart
+    plt.savefig(filename, bbox_inches='tight')
+    print(f"\nDistribution chart saved to {filename}")
+    plt.close()
+
     return
 
 
@@ -195,6 +229,10 @@ def simulate_load(
 
     create_gantt_chart(results, chart_file_path)
     
+    # Create distribution chart for small queries vs small pipelines
+    distribution_filename = chart_file_path.replace('.png', '_distribution.png')
+    draw_query_vs_pipeline_duration(results, distribution_filename, size="small")
+    
     print(f"\n\nDone at {datetime.now()}\n\nSee you, space cowboy!")
     return
     
@@ -205,8 +243,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Simulate load for scheduling test.")
     parser.add_argument('--bpln_profile', default='default')
     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
-    parser.add_argument('--num_threads', type=int, default=20, help='Number of threads to use for simulation')
-    parser.add_argument('--num_tasks', type=int, default=40, help='Number of tasks to simulate')
+    parser.add_argument('--num_threads', type=int, default=4, help='Number of threads to use for simulation')
+    parser.add_argument('--num_tasks', type=int, default=100, help='Number of tasks to simulate')
     parser.add_argument('--chart_file_path', type=str, default='task_chart.png', help='Output path for Gantt chart')
     args = parser.parse_args()
     # now start the main function
