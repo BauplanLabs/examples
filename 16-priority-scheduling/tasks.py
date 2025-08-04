@@ -53,7 +53,11 @@ def small_pipeline(profile: str, task_id: str, dry_run: bool = False) -> bool:
     bpl_client = bauplan.Client(profile=profile)
     user = bpl_client.info().user
     username = user.username
-    tmp_branch_name = f'{username}.small_pipeline_{task_id}'
+    tmp_branch_name = f'{username}.{task_id}'
+     # just in case the branch already exists, delete it to make sure we can create a new one
+    if bpl_client.has_branch(tmp_branch_name):
+        bpl_client.delete_branch(tmp_branch_name)
+        
     bpl_client.create_branch(tmp_branch_name, 'main')
     run_state = bpl_client.run(
         'bpln_pipeline/',
@@ -75,7 +79,11 @@ def big_pipeline(profile: str, task_id: str, dry_run: bool = False) -> bool:
     bpl_client = bauplan.Client(profile=profile)
     user = bpl_client.info().user
     username = user.username
-    tmp_branch_name = f'{username}.big_pipeline_{task_id}'
+    tmp_branch_name = f'{username}.{task_id}'
+    # just in case the branch already exists, delete it to make sure we can create a new one
+    if bpl_client.has_branch(tmp_branch_name):
+        bpl_client.delete_branch(tmp_branch_name)
+    
     bpl_client.create_branch(tmp_branch_name, 'main')
     run_state = bpl_client.run(
         'bpln_pipeline/',

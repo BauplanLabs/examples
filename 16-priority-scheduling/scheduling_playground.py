@@ -243,7 +243,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Simulate load for scheduling test.")
     parser.add_argument('--bpln_profile', default='default')
     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
-    parser.add_argument('--num_threads', type=int, default=4, help='Number of threads to use for simulation')
+    parser.add_argument('--num_threads', type=int, default=15, help='Number of threads to use for simulation')
     parser.add_argument('--num_tasks', type=int, default=100, help='Number of tasks to simulate')
     parser.add_argument('--chart_file_path', type=str, default='task_chart.png', help='Output path for Gantt chart')
     args = parser.parse_args()
