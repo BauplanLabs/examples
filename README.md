@@ -24,7 +24,7 @@ These examples are organized into different folders. Each example is an end-to-e
 2. [Data app with Streamlit](02-data-visualization-app)
 3. [Machine Learning - Linear regression pipeline](03-ml-regression-model)
 4. [Data Quality and Expectations](04-data-quality-expectations)
-5. [ETL workflow with Prefect](05-import-data-orchestration)
+5. [ETL workflow with Prefect](05-iceberg-lakehouse-wap)
 6. [Near Real Time Analytics with Streamlit and Prefect](06-near-real-time)
 7. [Entity matching in e-commerce with bauplan and LLMs](07-entity-matching-with-llm)
 
