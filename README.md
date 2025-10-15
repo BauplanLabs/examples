@@ -14,7 +14,7 @@ This is a collection of examples for [bauplan](https://www.bauplanlabs.com/). Us
 You can access all bauplan capabilities though CLI commands or through our Python SDK, and build your data applications like simple Python programs.
 Remember, although your code runs from your local machine, bauplan operates entirely in the cloud - there is no local version of bauplan.
 Your scripts communicate with our cloud platform, which orchestrates and executes data workflows in the cloud.
-The best way to get started is to go through our [tutorial](https://docs.bauplanlabs.com/en/latest/tutorial/index.html)
+The best way to get started is to go through our [tutorial](https://docs.bauplanlabs.com/tutorial/installation)
 
 These examples are organized into different folders. Each example is an end-to-end use case you can use bauplan for.
 
