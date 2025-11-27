@@ -4,10 +4,10 @@ In this example we show how to organize and run a simple machine learning projec
 
 ## Preliminary steps
 
-👉👉👉 To use Bauplan, you need an API key for our preview environment: you can request one [here](https://www.bauplanlabs.com/#join).
+👉👉👉 To use Bauplan, you need an API key for our preview environment: you can request one [here](https://app.bauplanlabs.com/api-keys).
 
-If you want to get familiar with Bauplan, start with our [tutorial](https://docs.bauplanlabs.com/en/latest/tutorial/01_quick_start.html#)
+If you want to get familiar with Bauplan, start with our [tutorial](https://docs.bauplanlabs.com/tutorial/quick_start)
 
 ## Step by Step
 
-👉👉👉 To get your hands dirty and play with this example, check out [our documentation](https://docs.bauplanlabs.com/en/latest/examples/ML_pipeline.html).
+👉👉👉 To get your hands dirty and play with this example, check out [our documentation](https://docs.bauplanlabs.com/examples/ML_pipeline).
