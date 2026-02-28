@@ -1,0 +1,12 @@
+[project]
+name = "case-study-telemetry"
+version = "0.1.0"
+description = "Medallion architecture for telemetry data: Bronze-to-Silver pipeline with quality checks and a Streamlit dashboard"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "bauplan>=0.1.9",
+    "plotly>=6.5.2",
+    "polars>=1.38.1",
+    "streamlit>=1.54.0",
+]

@@ -1,0 +1,13 @@
+project:
+    id: f2af5981-df1b-44f3-82a4-4bc0b5e3167b
+    name: build-a-playlist-recommender
+parameters:
+    num_followers:
+        type: int
+        default: 2
+    num_tracks:
+        type: int
+        default: 3
+    top_k:
+        type: int
+        default: 10000

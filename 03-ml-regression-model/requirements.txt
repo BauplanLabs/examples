@@ -1,6 +1,0 @@
-bauplan
-matplotlib==3.8.1
-seaborn==0.13.0
-pandas==2.2.0
-jupyterlab>=4
-streamlit==1.28.1

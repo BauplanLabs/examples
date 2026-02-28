@@ -1,0 +1,11 @@
+[project]
+name = "from-notebooks-to-prod"
+version = "0.1.0"
+description = "Go from a marimo notebook to a production Bauplan pipeline"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "bauplan>=0.1.9",
+    "marimo==0.20.4",
+    "polars>=1.30.0",
+]

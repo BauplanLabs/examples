@@ -1,0 +1,13 @@
+[project]
+name = "04-using-llms-with-secrets"
+version = "0.1.0"
+description = "Transform unstructured financial PDFs into tabular datasets using LLMs and Bauplan"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bauplan>=0.1.9",
+    "boto3>=1.42.59",
+    "plotly>=6.5.2",
+    "pyarrow>=23.0.1",
+    "streamlit>=1.54.0",
+]

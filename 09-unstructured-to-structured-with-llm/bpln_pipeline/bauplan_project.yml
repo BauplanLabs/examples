@@ -1,8 +1,0 @@
-project:
-    id: f04d3127-50bb-450b-ac9f-5bbf9e2f125f
-    name: pdf_to_tables_llm
-parameters:
-    openai_api_key:
-        type: secret
-        default: fnliP+1fwh6h5SN3508oiprJyRnSPXzYYpCl++GVwI+Mf8t8Pp1J65jSn36G+2Xt+Q7yAW4t5GJCfzTA0ZGr295YOOEw/KeMkcoS+pOc5jhTFmlL82scBzUYxT2jH0SUQYoG1qZtZOLY2+hp3Z0ZYPFrp2rma/LG50dQH+Yoc5nLRumQu3Vojy5QP47T9G9LJ6U69xmZv8kNjMLb1llm5VtjjpqsxoqlKkUqHxQV70vWKaz9OhbLpD7vUAt15OJLR4TyPWn334A04+qyBuM7Z3ou43o8Yin6FN2MnJSJDa223iTRAGXwVW9rFPOCqSf8Gu8/v33YtNW9YMEnantkiouEAtUtbsdnDcoKQk+7sjsEKnIJJe3GgGVUbih/w60uhGrQi58GtxrbkOANV5QruD/90HhRbM7PnLP0BjI2U00bICLhMwqoGTl0UWmHczbRMAWSI8tyU9itKzfUv7rm5m/xHRIQxZTaLXgW5eP4muA/wEMlkNOtKorESBnBS9zRyr/M1QYf+zQYTw70VjmSBPobO29Lkgca12RsWypcdEBg6rU8vDpPg+LNoLrUi5tgdWHKhBbRgVSGZKcjf7Fw0ZbNiLp52CczcUiPsjC4Dc7iZGXdT/FP6cXJ2hUKFA/Dqvdz8NLB3XV2eCI42HhkxWft4vpqDP1dBh0ZglzxmOo=
-        key: awskms:///arn:aws:kms:us-east-1:381492128837:key/mrk-b5de2955e645426a9dfd18dcd0cb3ca5

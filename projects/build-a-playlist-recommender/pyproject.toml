@@ -1,0 +1,13 @@
+[project]
+name = "build-a-playlist-recommender"
+version = "0.1.0"
+description = "Embedding-based music recommender using Bauplan and MongoDB Atlas"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bauplan>=0.1.9",
+    "matplotlib>=3.10.8",
+    "polars>=1.38.1",
+    "pymongo>=4.16.0",
+    "streamlit>=1.55.0",
+]

@@ -1,0 +1,7 @@
+project:
+  id: be59cde5-cca2-422e-bafd-31d0512430b9
+  name: advanced-git-for-data
+
+parameters:
+  run_id:
+    type: int

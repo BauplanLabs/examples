@@ -1,7 +1,0 @@
-streamlit==1.40.1
-prefect==3.1.2
-matplotlib==3.9.2
-seaborn==0.13.2
-plotly==5.24.1
-boto3==1.35.64
-bauplan

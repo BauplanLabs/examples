@@ -1,0 +1,12 @@
+[project]
+name = "01-pipeline-to-dashboard"
+version = "0.1.0"
+description = "Build a data pipeline over NYC taxi data and connect it to a Streamlit dashboard"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bauplan>=0.1.9",
+    "plotly>=6.5.2",
+    "polars>=1.38.1",
+    "streamlit>=1.54.0",
+]
