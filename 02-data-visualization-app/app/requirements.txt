@@ -1,5 +1,5 @@
 bauplan
-streamlit==1.28.1
+streamlit==1.54.0
 pandas==2.2.0
 matplotlib==3.8.1
 seaborn==0.13.0
