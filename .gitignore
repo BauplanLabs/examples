@@ -162,3 +162,9 @@ cython_debug/
 .DS_Store
 
 __marimo__/
+
+.claude/
+
+.ruff_cache/
+
+.vscode/

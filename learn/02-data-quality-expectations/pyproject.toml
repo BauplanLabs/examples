@@ -1,0 +1,9 @@
+[project]
+name = "02-data-quality-expectations"
+version = "0.1.0"
+description = "Add expectation tests to a Bauplan pipeline to catch data quality issues"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bauplan>=0.1.9",
+]

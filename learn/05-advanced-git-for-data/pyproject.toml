@@ -1,0 +1,9 @@
+[project]
+name = "05-advanced-git-for-data"
+version = "0.1.0"
+description = "Deep dive into Bauplan branching, time travel, tagging, and transactions"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bauplan>=0.1.9",
+]

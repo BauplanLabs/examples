@@ -1,7 +1,0 @@
-project:
-    id: 6bb3829e-6808-4bd7-b23d-6fc5545449c6
-    name: rags_with_pinecone
-parameters:
-    creation_date_start:
-        type: str
-        default: "2016-10-19T00:00:00+00:00"

@@ -1,8 +1,0 @@
-project:
-    id: 785c41b2-7d2f-4149-8fb8-a3d02557613b
-    name: pdf_analysis_with_openai
-parameters:
-    openai_api_key:
-        type: secret
-        default: Ne9pjYg4dPKv9MI1doXPLd1B2+ax+1UZK1Ymvn/z62Nx2RRYfc+Wq5xT7eSeRhvNdK9H/DlIAFlOq6wQGJZ/xkW6WRHh8KNEMMZY/fZXOr+N53QR6r0dX3mafD83y5Kar4PPH6SC27l3PPThs97MP4iYZMx3MIoYmdZ01vzDq2ntQTqXB8bqvvC228RkC3wneOoFm+6nJU2bNS+QgjplgNdlB6N+ja/vfyECcdj3y4Cps6NQNZS0OlJTri/tQvMUyXHbt0fzu2tJvg9n6YEkbH9ysn6uC5Rlx6VU8wVFRN0DuVwa6d9yXxvkk8mXZ+jvdLnvGa8PI3q5MDyY+0YEHHkuGD2dXD8vWyGbDcakOm1K+nkLTfDU/pReIv0PjAJ/rhkTSPgZRHcNFSkdAGXUva6BgVF3misdv8pxLCWd6jWdFBBzdk+fQ4GZSzsOoRe5EEmyjk0Lr5UAfmq3YTWdCI05LuHNHR9MQeswtKxK7g3sw+H9pryEJBstBAGw+9e1Du5jrXXBzPO5ad5QiojoDbGLEiBkBvUBbIKAcUyBVhaaK6ZonGPiJUGp1YrRb7DjoxhB7bUdHrIZbx0cm6ojf2Omca2jwBhheee2QbbvmLhrtZTAWUYGENJuWHz53SD08DucVKR9sI7mixYsPtasyDICjdHlGSl4LnLFLyXfpfE=
-        key: awskms:///arn:aws:kms:us-east-1:381492128837:key/mrk-b5de2955e645426a9dfd18dcd0cb3ca5

@@ -1,0 +1,8 @@
+project:
+    id: 6bb3829e-6808-4bd7-b23d-6fc5545449c6
+    name: rag-service-support-agent
+parameters:
+    creation_date_start:
+        type: str
+        default: "2016-10-19T20:00:00+00:00"
+    
