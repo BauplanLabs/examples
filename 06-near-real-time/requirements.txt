@@ -1,4 +1,4 @@
-streamlit==1.40.1
+streamlit==1.54.0
 prefect==3.1.2
 matplotlib==3.9.2
 seaborn==0.13.2
